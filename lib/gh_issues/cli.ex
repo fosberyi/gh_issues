@@ -28,10 +28,12 @@ defmodule GhIssues.CLI do
     """
   end
 
-  def process({user, project, _count}) do
+  def process({user, project, count}) do
     GhIssues.GitHub.fetch(user, project)
     |> decode_response
     |> convert_to_list_of_maps
+    |> sort_by_acending
+    |> Enum.take(count)
   end
 
   def decode_response({:ok, body}), do: body
