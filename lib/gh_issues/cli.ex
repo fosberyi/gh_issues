@@ -34,7 +34,7 @@ defmodule GhIssues.CLI do
     |> convert_to_list_of_maps
   end
 
-  def decode_response({:ok, body}) do: body
+  def decode_response({:ok, body}), do: body
 
   def decode_response({:error, error}) do
     {_, message} = List.keyfind(error, "message", 0)
@@ -45,5 +45,12 @@ defmodule GhIssues.CLI do
   def convert_to_list_of_maps(list) do
     list
     |> Enum.map(&Enum.into(&1, Map.new))
+  end
+
+  def sort_by_acending(list_of_issues) do
+    Enum.sort(
+      list_of_issues,
+      fn i1, i2 -> i1["created_at"] <= i2["created_at"] end
+    )
   end
 end
