@@ -1,4 +1,5 @@
 defmodule GhIssues.CLI do
+  import GhIssues.TableFormatter, only: [print_table_for_columns: 2]
   @default_count 4
 
   @moduledoc """
@@ -6,7 +7,7 @@ defmodule GhIssues.CLI do
   generating a table of the last __n__ issues in a GitHub project.
   """
 
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
@@ -34,6 +35,7 @@ defmodule GhIssues.CLI do
     |> convert_to_list_of_maps
     |> sort_by_acending
     |> Enum.take(count)
+    |> print_table_for_columns(["number", "created_at", "title"])
   end
 
   def decode_response({:ok, body}), do: body

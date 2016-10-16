@@ -3,6 +3,7 @@ defmodule GhIssues.Mixfile do
 
   def project do
     [app: :gh_issues,
+     escript: escript_config,
      version: "0.0.1",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
@@ -31,5 +32,9 @@ defmodule GhIssues.Mixfile do
       {:httpoison, "~> 0.9.0"},
       {:poison, "~> 2.2"}
     ]
+  end
+
+  defp escript_config do
+    [main_module: GhIssues.CLI]
   end
 end
