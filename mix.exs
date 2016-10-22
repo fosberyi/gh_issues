@@ -5,6 +5,8 @@ defmodule GhIssues.Mixfile do
     [app: :gh_issues,
      escript: escript_config,
      version: "0.0.1",
+     name: "GitHub Issues CLI",
+     source_url: "https://github.com/fosberyi/gh_issues",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -30,7 +32,9 @@ defmodule GhIssues.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.9.0"},
-      {:poison, "~> 2.2"}
+      {:poison, "~> 2.2"},
+      {:ex_doc, "~> 0.14.3"},
+      {:earmark, "~> 1.0.2"}
     ]
   end
 
