@@ -29,12 +29,12 @@ defmodule GhIssues.TableFormatter do
   `headers` param contains the list of columns to extract.
 
   ## Example
-  ```
-  iex> list = [Enum.into([{"a", 1},{"b", 2},{"c", 3}], %{}),
-  ...> Enum.into([{"a", 4},{"b", 5},{"c", 6}], %{})]
-  iex> GhIssues.TableFormatter.split_into_columns(list, ["a", "b", "c"])
-  [["1","4"],["2","5"],["3","6"]]
-  ```
+
+      iex> list = [Enum.into([{"a", 1},{"b", 2},{"c", 3}], %{}),
+      ...> Enum.into([{"a", 4},{"b", 5},{"c", 6}], %{})]
+      iex> GhIssues.TableFormatter.split_into_columns(list, ["a", "b", "c"])
+      [["1","4"],["2","5"],["3","6"]]
+
   """
   def split_into_columns(rows, headers) do
     for header <- headers do
@@ -46,12 +46,12 @@ defmodule GhIssues.TableFormatter do
   Return a binary (string) version of our param.
 
   ## Examples
-  ```
-  iex> GhIssues.TableFormatter.printable("a")
-  "a"
-  iex> GhIssues.TableFormatter.printable(99)
-  "99"
-  ```
+
+      iex> GhIssues.TableFormatter.printable("a")
+      "a"
+      iex> GhIssues.TableFormatter.printable(99)
+      "99"
+
   """
   def printable(str) when is_binary(str), do: str
   def printable(str), do: to_string(str)
@@ -61,11 +61,11 @@ defmodule GhIssues.TableFormatter do
   max width of each column
 
   ## Example
-  ```
-  iex> data = [["is3", "thisis7", "1"], ["this5", "four", "1"]]
-  iex> GhIssues.TableFormatter.widths_of(data)
-  [7,5]
-  ```
+
+      iex> data = [["is3", "thisis7", "1"], ["this5", "four", "1"]]
+      iex> GhIssues.TableFormatter.widths_of(data)
+      [7,5]
+
   """
   def widths_of(columns) do
     for column <- columns, do: column |> map(&String.length/1) |> max
@@ -76,11 +76,11 @@ defmodule GhIssues.TableFormatter do
   columns.
 
   ## Example
-  ```
-  iex> widths = [5,6,99]
-  iex> GhIssues.TableFormatter.format_for(widths)
-  "~-5s / ~-6s / ~-99s~n"
-  ```
+
+      iex> widths = [5,6,99]
+      iex> GhIssues.TableFormatter.format_for(widths)
+      "~-5s / ~-6s / ~-99s~n"
+
   """
   def format_for(column_widths) do
     map_join(column_widths, " / ", fn width -> "~-#{width}s" end) <> "~n"
@@ -91,11 +91,11 @@ defmodule GhIssues.TableFormatter do
   and table content
 
   ## Example
-  ```
-  iex> widths = [2,3,4]
-  iex> GhIssues.TableFormatter.separator(widths)
-  "---+-----+-----"
-  ```
+
+      iex> widths = [2,3,4]
+      iex> GhIssues.TableFormatter.separator(widths)
+      "---+-----+-----"
+
   """
   def separator(column_widths) do map_join(column_widths, "-+-", fn width -> List.duplicate("-", width) end)
   end
